@@ -14,9 +14,10 @@ from datetime import datetime
 def index(request):		
 	users = Users.objects.all()
 	userList = []
+	userEmailData = []
 	for user in users:
 		userList.append(user.e_mail)
-	userEmailData = json.dumps(userList)
+	#userEmailData = json.dumps(userList)
 
 	captureValue = randrange(100000,999999)	
 	context = {'captureValue':captureValue,'userEmailData':userEmailData}	
