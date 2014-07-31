@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 import json 
 from django.core.mail import send_mail
 from project.models import *
-from project.forms import *
 from random import randrange
 from datetime import datetime
 # time   str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -17,7 +16,7 @@ def index(request):
 	userList = []
 	for user in users:
 		userList.append(user.e_mail)
-		userEmailData = json.dumps(userList)
+	userEmailData = json.dumps(userList)
 
 	captureValue = randrange(100000,999999)	
 	context = {'captureValue':captureValue,'userEmailData':userEmailData}	
