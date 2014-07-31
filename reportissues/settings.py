@@ -77,13 +77,10 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static asset configuration
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'static'),
-)
+STATIC_URL = '/static/'
 
 
 # Parse database configuration from $DATABASE_URL
@@ -137,4 +134,4 @@ EMAIL_HOST_USER = 'projecmanagementspprt@gmail.com'
 EMAIL_HOST_PASSWORD = 'projectmanagement'
 EMAIL_USE_TLS = True
 EMAIL_SENDER = 'projecmanagementspprt@gmail.com'
-EMAIL_SSL = True   
+EMAIL_SSL = True
