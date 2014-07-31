@@ -56,13 +56,18 @@ WSGI_APPLICATION = 'reportissues.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dcsvqcro55ts0a',
+        'HOST': 'ec2-54-204-43-200.compute-1.amazonaws.com',
+        'PASSWORD':'REZQm4v374ulgH2yRh3ahKwcmd',
+        'PORT':'5432',
+        'USER':'aeglmpmexabvnl',
+         
     }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
