@@ -30,13 +30,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
     'project',
 )
 
@@ -47,8 +46,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.doc.XViewMiddleware'
 )
 
 ROOT_URLCONF = 'reportissues.urls'
@@ -102,10 +99,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 gettext = lambda s: s
 PROJECT_PATH = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/app/static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, '../reportissues/static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -126,7 +123,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'django.core.context_processors.static'
     
 )
  
@@ -138,4 +134,4 @@ EMAIL_HOST_USER = 'projecmanagementspprt@gmail.com'
 EMAIL_HOST_PASSWORD = 'projectmanagement'
 EMAIL_USE_TLS = True
 EMAIL_SENDER = 'projecmanagementspprt@gmail.com'
-EMAIL_SSL = True
+EMAIL_SSL = True 
