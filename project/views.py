@@ -17,7 +17,7 @@ def index(request):
 	userEmailData = []
 	for user in users:
 		userList.append(user.e_mail)
-	#userEmailData = json.dumps(userList)
+	userEmailData = json.dumps(userList)
 
 	captureValue = randrange(100000,999999)	
 	context = {'captureValue':captureValue,'userEmailData':userEmailData}	
@@ -98,7 +98,7 @@ def acctivationAccount(request,user_id):
 			return render(request,'userFunction.html',context)
 		else:
 			context = {'user':user,'word':"Activation key does not match"}
-			return render(request,'activation.html'.context)
+			return render(request,'activation.html',context)
 
 
 	else:
