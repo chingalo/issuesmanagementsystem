@@ -80,7 +80,7 @@
 
 			<!-- signup form -->
 			<div class = "span6 ">
-				<div class = "well" style = "border-radius:10px;border:1px solid #BFBFBF;">
+				<div class = "well" style = "border-radius:10px;border:1px solid #BFBFBF;max-width:90%;">
 					<div class = "headerforsignup">For new users to sign up</div>
 					<form class="form-horizontal" style = "text-align:justify;" method = "POST" action="{% url 'signUp' %}" name = "myform" onsubmit ="return validateForm()" >
 						{% csrf_token %}
