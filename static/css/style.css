@@ -22,7 +22,7 @@ padding-bottom:3px;
 text-align:center;
 }
 .signup{
-padding-left:35px;
+padding-left:0px;
 }
 
 .signup form{
@@ -37,7 +37,7 @@ font-style:italic;
 }
 .importantinfoOrAnimation{
 
-padding:20px;
+padding:2px;
 border-radius:10px;
 border:1px solid #BFBFBF;
 height:360px;
