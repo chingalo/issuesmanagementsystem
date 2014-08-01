@@ -1,9 +1,7 @@
-from django.conf import settings
 from django.conf.urls import patterns, url
 
-from django.contrib import admin
-admin.autodiscover()
 from project import views
+
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^signup/$', views.signUp, name='signUp'),
@@ -16,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/allprojects/$', views.allProjects, name='allProjects'),
     url(r'^(?P<user_id>\d+)/ownprojects/$', views.ownProjects, name='ownprojects'),
     url(r'^(?P<user_id>\d+)/collaboprojects/$', views.collabiratedProjects, name='collaboratedprojects'),
+    url(r'^(?P<user_id>\d+)/search/$', views.search, name='search'),
     #urls for issues view  
     url(r'^(?P<user_id>\d+)/allissues/$', views.allIssues, name='allIssues'),
     url(r'^(?P<user_id>\d+)/assignedissues/$', views.assignedIssues, name='assignedIssues'),
@@ -36,5 +35,5 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/(?P<issue_id>\d+)/closeIssue/$', views.closeIssue, name='closeIssue'),
     url(r'^(?P<user_id>\d+)/(?P<issue_id>\d+)/reopenIssue/$', views.reopenIssue, name='reopenIssue'),
     
-  
+    
 )

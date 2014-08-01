@@ -20,13 +20,48 @@
       	<script src = "{{STATIC_URL}}js/customeffect.js" type = "text/javascript"></script>
       	<script>
 			$(function() {
-				var availableTutorials = {{userList|safe}}
+				var allUsers = {{userList|safe}}
 				
 				$( "#nameOfCollaborator" ).autocomplete({
-					 source: availableTutorials
+					 source: allUsers
 					});
 				});	
       	</script>  
+      	<script>
+			$(function() {
+				var availableProjects = {{allProjects|safe}}
+				
+				$( "#nameOfProject" ).autocomplete({
+					 source: availableProjects
+					});
+				});	
+      	</script>
+      	<script>
+			function selectProject(){
+				var availableProjects = {{allProjects|safe}};
+				var nameOfProject  = document.getElementById('nameOfProject').value;
+				if(nameOfProject == ''){
+					alert('Please enter the name of project before submit');
+					return false;
+					}
+				else{
+					var tester = 0;
+					for(var i = 0;i < availableProjects.length; i++){
+						if (availableProjects[i] == nameOfProject){
+							tester = 1;
+							}
+						}
+					if(tester == 0){
+						alert('Project with name \"'+nameOfProject + "\" does not exist in the system\nplease try again");
+						return false;
+						}
+					else{ 
+						alert('Ready for submission\nSoon you will be directed to another URL');
+						return true;
+						}
+					}				
+				}
+      	</script> 
       	<script>
 			function chechEmail(){
 				var emailList = {{userEmailData|safe}};
@@ -75,7 +110,8 @@
 		
 		<div class = "container-fluid myFooter">
 			<hr>
-			<p>Powered by Unyayo Systems Limited<br>
+			<p>The System developed by <b>Mr. Joseph Chingalo</b>,<br> 
+			Computer science student at  the University of Dar es salaam<br>
 			&copy; {% now " Y" %}<br> all right reserved</p>		
 		</div>
 		
