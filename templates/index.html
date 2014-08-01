@@ -15,7 +15,7 @@
 					<form class="form-inline"  action ="{% url 'login' %}" method = "POST" >
 						{% csrf_token %}
 						<input type="text" id = "emaillogin" onblur = "return chechEmailLogin()" name = "email" class="input-medium" placeholder="Your e-mail">
-						<input type="password" name = "password" class="input-medium" placeholder="Your password">						  
+						<input type="password" name = "password" onpaste="return false;"  class="input-medium" placeholder="Your password">						  
 					    <input type="submit" value = "sign in " class = "btn">						   			  
 					</form>	<!--
 					<div class = "newpassword ">
@@ -114,14 +114,14 @@
 					<div class="control-group">
 						<label class="control-label" for="password">Password </label>	
 						<div class="controls">
-							<input type="password" id = "password" name="password" placeholder="password" class = "required">
+							<input type="password" id = "password" onpaste="return false;"  name="password" placeholder="password" class = "required">
 						</div>			
 					</div>
 					
 					<div class="control-group">
 						<label class="control-label" for="password confirmation">Password confirmation </label>	
 						<div class="controls">
-							<input type="password" id = "passwordConfirmation" name="passwordConfirmation" placeholder="Re type password" class = "required">
+							<input type="password" id = "passwordConfirmation" onpaste="return false;"  name="passwordConfirmation" placeholder="Re type password" class = "required">
 						</div>			
 					</div>	
 					
