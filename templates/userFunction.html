@@ -426,9 +426,9 @@
 			<form class="form-horizontal"  method = "POST" action ="{% url 'createIssue' user.id project.id %}" onsubmit = "return createNewIssue()" >
 					{% csrf_token %}
 				  <div class="control-group">
-					<label class="control-label" for="title of project">Title of project:</label>
+					<label class="control-label" for="title of issue">Title of Issue:</label>
 					<div class="controls">
-					  <input type="text" class = "input-large" name="title" id="titleOfIssue" value = "{{project}}" disabled >
+					  <input type="text" class = "input-large" name="title" id="titleOfIssue" placeholder = "type type of your issue" >
 					</div>
 				  </div>
 				  <div class="control-group">
