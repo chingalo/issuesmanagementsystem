@@ -452,6 +452,7 @@ def editProject(request,user_id,project_id):
 			
 			assignmentList = Project_assignment.objects.filter(project = project)
 			
+			memberList = []
 			nameList = user.name.split(" ")	
 			userName = 	nameList[0]	
 			for assignment in assignmentList:
