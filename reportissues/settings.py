@@ -139,4 +139,4 @@ EMAIL_HOST_USER = 'projecmanagementspprt@gmail.com'
 EMAIL_HOST_PASSWORD = 'projectmanagement'
 EMAIL_USE_TLS = True
 EMAIL_SENDER = 'projecmanagementspprt@gmail.com'
-EMAIL_SSL = True
+EMAIL_SSL = True 
