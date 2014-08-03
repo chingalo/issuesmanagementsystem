@@ -78,9 +78,14 @@
 		</div>
 
 		<!-- signup form -->
-		<div class = "span6 ">
-			<div class = "well" style = "border-radius:10px;border:1px solid #BFBFBF; max-width:90%;">
-				<div class = "headerforsignup">For new users to sign up</div>
+		<div class = "span7 ">
+			<div class = "well" style = "border-radius:10px;border:1px solid #BFBFBF;">
+				<div >
+					<p>
+						<i>For new users of IMS, please complete regstration by filling all required fields.</i>
+						<hr>
+					</p>
+				</div>
 				<form class="form-horizontal" style = "text-align:justify;" method = "POST" action="{% url 'signUp' %}" name = "myform" onsubmit ="return validateForm()" >
 					{% csrf_token %}
 					<div class="control-group">
