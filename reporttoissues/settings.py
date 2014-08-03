@@ -9,11 +9,9 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 DATABASES = {
-    'default': { 
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'ims',                     
-        'USER': 'ims',
-        'PASSWORD': 'IMS*',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 ALLOWED_HOSTS = ['*']
