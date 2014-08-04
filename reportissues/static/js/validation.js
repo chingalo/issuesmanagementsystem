@@ -1,3 +1,26 @@
+//change password
+function changePassword(){
+	newPassword = document.getElementById('newPassword').value;
+	newPasswordConfirmation = document.getElementById('newPasswordConfirm').value;
+	
+	if(newPassword == "" || newPasswordConfirmation == ""){
+		alert('Please fill all fields');
+		return false;
+		}
+	else{
+		if(newPassword == newPasswordConfirmation){
+			alert('You have successfull change your password');
+		return true;
+			}
+		else{
+			alert("Please make sure password and confirmation password are the same");
+			return false;
+			}
+		
+		}
+	}
+
+
 
 //validation of form on submit if all required fields have been filled
 function validateForm(){

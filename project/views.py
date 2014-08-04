@@ -25,6 +25,80 @@ def index(request):
 
 
 
+
+
+#request change password
+def forgetPassword(request):
+	users = Users.objects.all()
+	allUserEmails = []
+	allemails = []
+	for user in users:
+		allUserEmails.append(user.e_mail)
+		allemails = json.dumps(allUserEmails)
+		
+	if request.POST:
+		
+		form = request.POST
+		emailForRequestNewPassword = form.getlist('emailForRequestNewPassword')
+		userRequestNewPassword = Users.objects.get(e_mail = emailForRequestNewPassword[0])
+		#send emils for request new password
+		send_mail('REQUEST TO CHANGE PASSWORD IN IMS', 'Hi ' +userRequestNewPassword.name+',\nYou have request to change new password in IMS.\nIf you have forgotten your password click on link below.\n\nhttp://issuesmanager.herokuapp.com/'+str(userRequestNewPassword.id)+'/changePassword/', '',[emailForRequestNewPassword[0]], fail_silently=False)	
+		
+		users = Users.objects.all()
+		userList = []
+		userEmailData =[]
+		for user in users:
+			userList.append(user.e_mail)
+			userEmailData = json.dumps(userList)
+			
+		captureValue = randrange(100000,999999)	
+		context = {'captureValue':captureValue,'userEmailData':userEmailData}	
+		return render(request,'index.html',context)
+	
+	else:
+		context = {'contents':'forgetPassword','allemails':allemails}
+		return render(request,'newpassword.html',context)
+	
+
+
+
+
+
+#chenge password
+def changePassword(request,user_id):
+	user = Users.objects.get(id = user_id)
+	
+	if request.POST:
+		form = request.POST
+		newPassword = form.getlist('newPassword')
+		user.password = newPassword[0]
+		user.save()
+		#send emils for request new password
+		send_mail('SUCCESSFUL UPDATE ON PASSWORD IN IMS', 'Hi ' +user.name+'\nYou have successful update yout password.\nYour new password is \"'+str(user.password)+' \"', '',[user.e_mail], fail_silently=False)	
+		
+		#list of all projects for a given user
+		allProjectsFromSystem = Project_details.objects.all()
+		assignedProjectsFromSystem = Project_assignment.objects.all()
+		allProjects = []
+		for project in allProjectsFromSystem:
+			if project.project_owner == user:
+				allProjects.append(project)
+		for projectLink in assignedProjectsFromSystem:
+			if projectLink.project_member == user:
+				allProjects.append(projectLink.project)
+		
+		nameList = user.name.split(" ")	
+		userName = 	nameList[0]
+		context = {'user':user,'userName':userName,'contents':'allProjects','allProjects':allProjects}
+		return render(request,'userFunction.html',context)				
+	
+	context = {'contents':'changePassword','user':user}
+	return render(request,'newpassword.html',context)
+		
+
+
+
+
 	
 #sign up for new account
 def signUp(request):
