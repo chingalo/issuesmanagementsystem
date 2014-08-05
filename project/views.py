@@ -878,7 +878,7 @@ def sendInvitation(request,user_id,project_id):
 				
 				#send email after add collaborator in the project
 				subject = "COLLABORATION INVITATION ON "+project.title + " IN IMS"
-				message = "Hi, \nWelcome to IMS system. Its tracking issue system aims to facilitates easy management of software development as well as software maintenance.\nYou have been invited as collaborator on "+project.title+" project" +"by "+ user.name+ "\nYour new password : "+ str(newUser.password) + "\nYour activation codes: " + str(newUser.activationCode) + "\nYou can login into IMS website on url below\nhttp://issuesmanager.herokuapp.com/" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
+				message = "Hi, \nWelcome to IMS system. Its tracking issue system aims to facilitates easy management of software development as well as software maintenance.\nYou have been invited as collaborator on "+project.title+" project" +"by "+ user.name+ "\nYour new password : "+ str(newUser.password) + "\nYour activation codes: " + str(newUser.activationCode) + "\nYou can login into IMS website on url below and edit your information\nhttp://issuesmanager.herokuapp.com/" + "\n\nRegard,\nIMS developer,\nJoseph Chingalo,\nSoftware Consultant at Unyayo Systems Limited,\nMobile Number: +255687168637."
 				recipient_list = []
 				recipient_list.append(inviteeEmail[0])
 				from_email = 'no-reply@project.org'
