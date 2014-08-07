@@ -39,5 +39,6 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/(?P<issue_id>\d+)/reopenIssue/$', views.reopenIssue, name='reopenIssue'),
     #reports generations
     url(r'^(?P<user_id>\d+)/(?P<project_id>\d+)/allIssuesReport/$', views.allIssuesReport, name='allIssuesReport'),
-    url(r'^(?P<user_id>\d+)/viewUserProfile/$', views.viewUserProfile, name='viewUserProfile'),
+    url(r'^viewAllUserInIms/$', views.viewAllUserInIms, name='viewAllUserInIms'), 
+    url(r'^allProjectsInIms/$', views.allProjectsInIms, name='allProjectsInIms'),
 )

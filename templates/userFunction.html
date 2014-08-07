@@ -833,7 +833,10 @@
 				</tbody>
 			</table>
 			{%if user.e_mail == 'profschingalo@gmail.com'%}
-			<button onclick="window.location.href='{% url 'viewUserProfile' user.id  %}'">View all Users</button>	
+			<button onclick="window.location.href='{% url 'viewAllUserInIms'  %}'">View all Users</button>
+			<button onclick="window.location.href='{% url 'allProjectsInIms' %}'">View all projects</button>
+			<button onclick="window.location.href='{% url 'viewAllUserInIms' %}'">View all project assignment</button>
+			<button onclick="window.location.href='{% url 'viewAllUserInIms' %}'">Vi</button>	
 			{% endif %}		
 		</div>
 		{% endif %}

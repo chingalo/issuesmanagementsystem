@@ -1548,18 +1548,15 @@ def allIssuesReport(request,user_id,project_id):
 	
 	return response
 	
+
+
+
 	
 
-#user profiles in pdf
-def viewUserProfile(request,user_id):
-	# for report generation
-	from reportlab.pdfgen import canvas
-	from reportlab.lib.pagesizes import letter
-	
+#ims all users details in pdf
+def viewAllUserInIms(request):
 	users = Users.objects.all()
 	response = HttpResponse(content_type='application/pdf')
-	#uncoment below to have pdf download option
-	#response['Content-Disposition'] = 'attachment; filename="project.pdf"'
 	response['Content-Disposition'] = 'filename="project.pdf"'
 	
 	doc = SimpleDocTemplate(response, pagesize=letter,rightMargin=100,leftMargin=100,topMargin=50,bottomMargin=50 )
@@ -1589,6 +1586,31 @@ def viewUserProfile(request,user_id):
 
 
 
+#all projects in pdf
+def allProjectsInIms(request):
+	projects = Project_details.objects.all()
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'filename="project.pdf"'
+	
+	doc = SimpleDocTemplate(response, pagesize=letter,rightMargin=100,leftMargin=100,topMargin=100,bottomMargin=100 )
+	
+	story = []
+	style = getSampleStyleSheet()
+	story.append(Paragraph("IMS PROJECTS'S DETAILS",style['Heading3']))
+	story.append(Paragraph("",style['Heading3']))
+	
+	
+	for project in projects:
+		story.append(Paragraph(project.title +" Project",style['Heading3']))
+		story.append(Paragraph("Owned by " + project.project_owner.name ,style['Normal']))
+		story.append(Paragraph("Description : " + project.description ,style['Normal']))
+		story.append(Paragraph("date : " + str(project.date_of_creation) ,style['Normal']))
+		story.append(Paragraph("  "  ,style['Normal']))
+		story.append(Paragraph(" " ,style['Normal']))
+		
+	doc.build(story)
+	
+	return response
 
 
 
