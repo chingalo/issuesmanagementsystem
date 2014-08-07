@@ -1570,7 +1570,7 @@ def viewUserProfile(request,user_id):
 	story.append(Paragraph("",style['Heading3']))
 	
 	data = []
-	data.append(["Name","E-mail","Mobile Number","Account activation status","Date of entry"])
+	data.append(["Name","E-mail","Mobile Number","Account status","Date of entry"])
 	counter = 0;
 	for user in users:
 		counter = counter + 1
