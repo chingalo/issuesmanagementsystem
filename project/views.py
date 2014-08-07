@@ -1570,17 +1570,17 @@ def viewUserProfile(request,user_id):
 	story.append(Paragraph("",style['Heading3']))
 	
 	data = []
-	data.append(["Name","E-mail","Mobile Number","Account status","Date of entry"])
+	data.append(["Name","E-mail","Mobile Number","Account status"])
 	counter = 0;
 	for user in users:
 		counter = counter + 1
-		data.append([user.name,user.e_mail,user.mobile_number,user.activationStatus,user.entry_date])
+		data.append([user.name,user.e_mail,user.mobile_number,user.activationStatus])
 		
 	
 	table = Table(data)
 	table.setStyle(TableStyle([('BACKGROUND',(0,0),(5,0),colors.green),
 						    ('GRID', (0,0),(5,counter), 0, colors.black),
-						   ('TEXTCOLOR',(0,0),(4,counter),colors.blue)]))
+						   ('TEXTCOLOR',(0,0),(3,counter),colors.blue)]))
 	story.append(table)
 	doc.build(story)
 	
