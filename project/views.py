@@ -1580,7 +1580,7 @@ def viewUserProfile(request,user_id):
 	table = Table(data)
 	table.setStyle(TableStyle([('BACKGROUND',(0,0),(5,0),colors.green),
 						    ('GRID', (0,0),(5,counter), 0, colors.black),
-						   ('TEXTCOLOR',(0,0),(3,counter),colors.blue)]))
+						   ('TEXTCOLOR',(0,1),(3,counter),colors.blue)]))
 	story.append(table)
 	doc.build(story)
 	
