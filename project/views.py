@@ -8,7 +8,14 @@ from project.models import *
 from random import randrange
 from datetime import datetime
 # time   str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-
+from reportlab.pdfgen import canvas
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 #return the home page for the site
 def index(request):		
@@ -1514,6 +1521,73 @@ def logout(request,user_id):
 	user.save()
 	
 	return HttpResponseRedirect("/")
+
+
+
+## reports testing
+def allIssuesReport(request,user_id,project_id):
+	# for report generation
+	from reportlab.pdfgen import canvas
+	from reportlab.lib.pagesizes import letter
+	
+	project = Project_details.objects.get(id = project_id)
+	nameOfProject = project.title
+	
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="project.pdf"'
+	
+	output = canvas.Canvas(response, pagesize=letter) 
+	width, height = letter
+	
+	output.drawString(275,750,nameOfProject)
+	output.line(50,748,550,748)
+	
+	
+	output.showPage()
+	output.save()
+	
+	return response
+	
+	
+
+#user profiles in pdf
+def viewUserProfile(request,user_id):
+	# for report generation
+	from reportlab.pdfgen import canvas
+	from reportlab.lib.pagesizes import letter
+	
+	users = Users.objects.all()
+	response = HttpResponse(content_type='application/pdf')
+	#uncoment below to have pdf download option
+	#response['Content-Disposition'] = 'attachment; filename="project.pdf"'
+	response['Content-Disposition'] = 'filename="project.pdf"'
+	
+	doc = SimpleDocTemplate(response, pagesize=letter,rightMargin=100,leftMargin=100,topMargin=50,bottomMargin=50 )
+	
+	story = []
+	style = getSampleStyleSheet()
+	story.append(Paragraph("IMS USER'S DETAILS",style['Heading3']))
+	story.append(Paragraph("",style['Heading3']))
+	
+	data = []
+	data.append(["Name","E-mail","Mobile Number","Account activation status","Date of entry"])
+	counter = 0;
+	for user in users:
+		counter = counter + 1
+		data.append([user.name,user.e_mail,user.mobile_number,user.activationStatus,user.entry_date])
+		
+	
+	table = Table(data)
+	table.setStyle(TableStyle([('BACKGROUND',(0,0),(5,0),colors.green),
+						    ('GRID', (0,0),(5,counter), 0, colors.black),
+						   ('TEXTCOLOR',(0,0),(4,counter),colors.blue)]))
+	story.append(table)
+	doc.build(story)
+	
+	return response
+	
+
+
 
 
 
