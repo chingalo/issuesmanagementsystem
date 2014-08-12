@@ -422,7 +422,7 @@
 			{% endif %}			
 		</div>
 		<!-- smart and tablets -->
-		<div class = "well emptyIssues hidden-desktop" style = "max-width:80%;margin:auto;">
+		<div class = "well emptyIssues hidden-desktop" style = "max-width:98%;margin:auto;">
 			{% if allIssues %}
 			<table class="table table-striped" >
 				<thead>
@@ -628,7 +628,70 @@
 		<!----- craete and assign issue to user -->
 		{% if contents == 'createIssue' %}
 		{% if user.activationStatus == 'enable' %}
-		<div class = "well" style = "max-width:80%;">
+		<!--- for desktop ---->
+		<div class = "well visible-desktop" style = "max-width:80%;">
+			<p style = "text-align:center;">Fill the folowing fields to create and assign new issue to a user</p>
+			<hr>			
+			<form class="form-horizontal"  method = "POST" action ="{% url 'createIssue' user.id project.id %}" onsubmit = "return createNewIssue()" >
+					{% csrf_token %}
+				  <div class="control-group">
+					<label class="control-label" for="title of issue">Title of Issue:</label>
+					<div class="controls">
+					  <input type="text" class = "input-large" name="title" id="titleOfIssue" placeholder = "type type of your issue" >
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="description">Description of issue:</label>
+					<div class="controls">
+					  <textarea rows="5"  id = "descriptionOfProject" name = "description" placeholder = "What a project is about"></textarea>
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="name of assignee">Name of Assignee:</label>					
+					  <div class="controls">
+						<select name="assignee">
+							{% for member in memberList %} 
+							<option   value="{{member}}" name="assignee">{{member}}</option>
+							{% endfor %}	
+						</select>					
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="priority of issue">Priority of Issue:</label>
+					<div class="controls">
+						<select name="priority">
+							<option value="critical" name="priority">critical</option>
+							<option value="blocked" name="priority">blocked</option>
+							<option value="minor" name="priority">minor</option>
+							<option value="major" name="priority">major</option>	
+							<option value="trivial" name="priority">trivial</option>
+						</select>					  
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="type of issue">Type of Issue:</label>
+					<div class="controls">
+						<select name="type">
+							<option value="bug" name="type">bug</option>
+							<option value="enhancement" name="type">enhancement</option>
+							<option value="proposal" name="type">proposal</option>
+							<option value="task" name="type">task</option>
+						</select>					  
+					</div>
+				  </div>
+				  <div class="control-group">
+					<div class="controls">
+					  <input type="submit" value = "Create issue">
+					</div>
+				  </div>				  
+			</form>
+		</div>		
+		
+		
+		
+		
+		<!-- for smart phones and tablests --->
+			<div class = "row-fluid hidden-desktop" style = "max-width:98%;margin:auto; border-radius:3px;padding:1px; background:#E5E5E5;">
 			<p style = "text-align:center;">Fill the folowing fields to create and assign new issue to a user</p>
 			<hr>			
 			<form class="form-horizontal"  method = "POST" action ="{% url 'createIssue' user.id project.id %}" onsubmit = "return createNewIssue()" >
@@ -685,6 +748,7 @@
 				  </div>				  
 			</form>
 		</div>
+
 		{% else %}
 		<div class = "well">
 			<p>Currently your account have not yet being activate.<br>To activate your account <a href = "{% url 'acctivationAccount' user.id %}">click here</a></p>
@@ -729,10 +793,7 @@
 		
 		<div class = "row-fluid" style = "margin-top:3%;">
 			<!-- details and comments for a given issue -->	
-			
-					
-			<div class = "span8">
-				<div class = "well ">
+				<div class = "hidden-desktop" style = "border-radius:5px;background:#E5E5E5;margin:auto;padding:1px; max-width:98%;">
 					<!-- deatails for a given issue-- issueAssignee-->
 					<h4><u>{{ issue.title|title }}</u></h4>
 					<p>&nbsp;&nbsp;{{ issue.description }}<br>
@@ -761,7 +822,44 @@
 						{% csrf_token %}
 						<textarea rows="5" id = "comments" name = "comments" placeholder = "Your comments on {{issue}}"></textarea>
 						<input type="submit" value = "Comment " class = "btn">
-					</form>		
+					</form>
+				</div>
+				
+				
+				
+				
+				<div class = "span8 visible-desktop">
+				<div class = "well ">
+						<!-- deatails for a given issue-- issueAssignee-->
+					<h4><u>{{ issue.title|title }}</u></h4>
+					<p>&nbsp;&nbsp;{{ issue.description }}<br>
+					<span class="pull-left" style = "color:#1E90FF;">
+						<i>creaated by </i>{{ issue.assigner }}
+					</span>						
+					<br>
+					Total commets : <i style = "color:#1E90FF;">{{commentsTotal}}</i>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type of Issue : <i style = "color:#1E90FF;">{{ issue.type_of_issue }}</i>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; priority : <i style = "color:#1E90FF;">{{ issue.priority }}</i></p>
+					<hr> 
+						<!-- comments on a issue --->				
+					<div class = "comments">
+						{% for comment in comments %}
+						<div>
+							<p>{{comment.description}}<br>					 
+								<span class="pull-right" style = "color:#1E90FF;">									
+									<i>commented by </i>{{ comment.commenter }}
+								</span>
+							</p>
+						</div><hr> 													
+						{% endfor %}				
+					</div>	
+					<hr>
+					<form class="form-inline"  action ="{% url 'commentOnIssue' user.id issue.id %}" method = "POST" onsubmit = "return commentValidation()" >
+						{% csrf_token %}
+						<textarea rows="5" id = "comments" name = "comments" placeholder = "Your comments on {{issue}}"></textarea>
+						<input type="submit" value = "Comment " class = "btn">
+					</form>
+							
 				</div>			
 			</div>
 			<!-- status details for a given issue for desktop-->
@@ -801,42 +899,61 @@
 		
 		<!-- view profile ----->
 		{%if contents == 'viewProfile' %}
-		<div class = "profile">
-			<h5>Account Profile's details</h5>
-			<table class = "table table-hover"> 
-				<thead></thead>
-				<tbody>
-					<tr>
-						<td>Your name </td>
-						<td>{{user.name}}</td>
-					</tr>
-					<tr>
-						<td>Your e-mail </td>
-						<td>{{user.e_mail}}</td>
-					</tr>
-					<tr>
-						<td>Your Mobile Number </td>
-						<td>{{user.mobile_number}}</td>
-					</tr>
-					<tr>
-						<td>Your password </td>
-						<td>{{user.password}}</td>
-					</tr>
-					<tr>
-						<td>Your account activation status</td>
-						<td>{{user.activationStatus}}</td>
-					</tr>
-					<tr>
-						<td>Your account was craeted on </td>
-						<td>{{user.entry_date}}</td>
-					</tr>				
-				</tbody>
-			</table>
+		<div class = " profile " >
+			<div class = "visible-desktop">
+				<h5>Account Profile's details</h5>
+				<table class = "table table-hover"> 
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td>Your name </td>
+							<td>{{user.name}}</td>
+						</tr>
+						<tr>
+							<td>Your e-mail </td>
+							<td>{{user.e_mail}}</td>
+						</tr>
+						<tr>
+							<td>Your Mobile Number </td>
+							<td>{{user.mobile_number}}</td>
+						</tr>
+						<tr>
+							<td>Your password </td>
+							<td>{{user.password}}</td>
+						</tr>
+						<tr>
+							<td>Your account activation status</td>
+							<td>{{user.activationStatus}}</td>
+						</tr>
+						<tr>
+							<td>Your account was craeted on </td>
+							<td>{{user.entry_date}}</td>
+						</tr>				
+					</tbody>
+				</table>
+				</div>
+				<div class = "hidden-desktop">
+				<h5>Account Profile's details</h5>
+				<p>Your name : </p>
+				<p>{{user.name}}</p>
+				<p>Your e-mail : </p>
+				<p>{{user.e_mail}}</p>
+				<p>Mobile Number : <p>
+				<p>{{user.mobile_number}}</p>
+				<p>Your password : </p>
+				<p>{{user.password}}</p>
+				<p>Your account status :
+				<p>{{user.activationStatus}}
+				<p>Your account was craeted on : </p>
+				<p>{{user.entry_date}}</p>
+				</div>
+			</div>
+			
 			{%if user.e_mail == 'profschingalo@gmail.com'%}
 			<button onclick="window.location.href='{% url 'viewAllUserInIms'  %}'">View all Users</button>
 			<button onclick="window.location.href='{% url 'allProjectsInIms' %}'">View all projects</button>
-			<button onclick="window.location.href='{% url 'viewAllUserInIms' %}'">View all project assignment</button>
-			<button onclick="window.location.href='{% url 'viewAllUserInIms' %}'">Vi</button>	
+		<!--	<button onclick="window.location.href='{% url 'viewAllUserInIms' %}'">View all project assignment</button>
+			<button onclick="window.location.href='{% url 'viewAllUserInIms' %}'">Vi</button>	-->
 			{% endif %}		
 		</div>
 		{% endif %}
@@ -848,7 +965,61 @@
 		
 		<!-- edit profile -->
 		{%if contents == 'editProfile' %}
-		<div class = "well" style = "max-width:90%;margin:auto;">
+		<!-- for desktop --->
+		<div class = "well visible-desktop" style = "max-width:98%;margin:auto;">
+			<p>
+				<i>Please edit information you want to edit</i>
+			</p>
+			<form class="form-horizontal"  method = "POST" action="{% url 'editProfile' user.id %}" name = "myform" onsubmit ="return editProfile()">
+				{% csrf_token %}				
+				
+				<div class="control-group">
+					<label class="control-label" for="first name">First name </label>	
+					<div class="controls">
+						<input type="text" name="firstName"  class = "required" value = "{{userName}}">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="middle name">Middle name </label>	
+					<div class="controls">
+						<input type="text" name="middleName" placeholder = "Middle name" value = "{{middleName}}">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="last name">Last name </label>	
+					<div class="controls">
+						<input type="text"  name="lastName" value = "{{lastName}}" class = "required">
+					</div>			
+				</div>		
+				
+				<div class="control-group">
+					<label class="control-label" for="password">Password </label>	
+					<div class="controls">
+						<input type="password" name="password" placeholder="password" class = "required" value = "{{user.password}}">
+					</div>			
+				</div>			
+
+				<div class="control-group">
+					<label class="control-label" for="mobile number">Mobile number </label>	
+					<div class="controls">
+						<input type="text" name="mobileNumber" placeholder="+255 687 168 637" value = "{{user.mobile_number}}">
+					</div>			
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<input type="submit" value = "edit Profile " class = "btn" >
+					</div>			
+				</div>				
+
+			</form>			
+		</div>
+		
+		<!--- for smart phones and tablets --->
+		
+		<div class = "hidden-desktop" style = "border-radius:5px;background:#E5E5E8;margin:auto;padding:1px; max-width:98%;">
 			<p>
 				<i>Please edit information you want to edit</i>
 			</p>
